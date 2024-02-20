@@ -68,7 +68,7 @@ public class BettaBiome {
 
         return new Biome.BiomeBuilder()
                 .precipitation(Biome.Precipitation.RAIN)
-                .m_47595_(Biome.BiomeCategory.SWAMP)
+                .biomeCategory(Biome.BiomeCategory.SWAMP)
                 .temperature(0.8F)
                 .downfall(0.9F)
                 .specialEffects(biomeSpecialEffects$builder.build())
