@@ -2,7 +2,6 @@ package com.dragn.bettas.fish.saltwater.glaucus;
 
 import com.dragn.bettas.BettasMain;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.GeoModel;
 
 public class GlaucusModel extends GeoModel<GlaucusEntity> {
 

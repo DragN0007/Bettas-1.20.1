@@ -1,8 +1,8 @@
 package com.dragn.bettas.fish.freshwater.glowfish;
 
 import com.dragn.bettas.BettasMain;
+import mod.azure.azurelib.model.GeoModel;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.GeoModel;
 
 public class GlowFishModel extends GeoModel<GlowFishEntity> {
 

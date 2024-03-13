@@ -1,10 +1,10 @@
 package com.dragn.bettas.fish.freshwater.glowfish;
 
 
+import mod.azure.azurelib.renderer.GeoEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class GlowFishRender extends GeoEntityRenderer<GlowFishEntity> {
     public GlowFishRender(EntityRendererProvider.Context renderManager) {

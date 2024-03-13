@@ -1,6 +1,7 @@
 package com.dragn.bettas.item;
 
 import com.dragn.bettas.BettasMain;
+import com.dragn.bettas.decor.Decor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -69,7 +70,7 @@ public class BettasItemTab {
                         output.accept(BettasMain.TANK.get());
                         output.accept(BettasMain.ALGAE_SCRAPER.get());
                         output.accept(BettasMain.ALLROUND.get());
-//                        output.accept(Decor.);
+                        output.accept(Decor.);
 
                     }).build());
 

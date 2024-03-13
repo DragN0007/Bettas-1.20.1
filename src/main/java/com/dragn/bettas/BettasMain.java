@@ -28,6 +28,8 @@ import com.dragn.bettas.item.AllRound;
 import com.dragn.bettas.tank.Tank;
 import com.dragn.bettas.tank.TankTile;
 import com.dragn.bettas.util.config.BettasCommonConfig;
+import com.mojang.serialization.Codec;
+import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.ResourceLocation;
@@ -35,11 +37,13 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -64,7 +68,9 @@ public class BettasMain {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
-    public static final DeferredRegister<DataSerializerEntry> SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.DATA_SERIALIZERS, MODID);
+    public static final DeferredRegister<EntityDataSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, MODID);
+    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(Registry.BIOME_REGISTRY, MODID);
+    public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, MODID);
 
 
     //FRESHWATER
@@ -163,8 +169,8 @@ public class BettasMain {
     public static final RegistryObject<Item> ALGAE_SCRAPER = ITEMS.register("algae_scraper", AlgaeScraper::new);
     public static final RegistryObject<Item> ALLROUND = ITEMS.register("allround", AllRound::new);
     public static final RegistryObject<BlockEntityType<TankTile>> TANK_TILE = TILE_ENTITIES.register("tank_tile", () -> BlockEntityType.Builder.of(TankTile::new, TANK.get()).build(null));
-    public static final RegistryObject<DataSerializerEntry> COLOR_SERIALIZER = SERIALIZERS.register("color_serializer",
-            () -> new DataSerializerEntry(new EntityDataSerializer<int[]>() {
+    public static final RegistryObject<EntityDataSerializer<?>> COLOR_SERIALIZER = SERIALIZERS.register("color_serializer",
+            () -> new EntityDataSerializer<int[]>() {
                 @Override
                 public void write(FriendlyByteBuf buffer, int[] list) {
                     buffer.writeVarIntArray(list);
@@ -179,7 +185,7 @@ public class BettasMain {
                 public int[] copy(int[] list) {
                     return list;
                 }
-            }));
+            });
 
     public BettasMain()
     {

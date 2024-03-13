@@ -1,6 +1,9 @@
 package com.dragn.bettas.fish.freshwater.cherrybarb;
 
 import com.dragn.bettas.BettasMain;
+import mod.azure.azurelib.animatable.GeoEntity;
+import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.core.animation.AnimatableManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -21,22 +24,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
 public class CherryBarbEntity extends AbstractSchoolingFish implements GeoEntity {
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+
 
 
     public static boolean checkTinyFishSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos pos, Random random) {
@@ -69,28 +62,15 @@ public class CherryBarbEntity extends AbstractSchoolingFish implements GeoEntity
     }
 
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-
-        if (event.isMoving()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("swim", ILoopType.EDefaultLoopTypes.LOOP));
-
-        } else
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));
-
-
-        return PlayState.CONTINUE;
-    }
-
-
-    //Controls animations
+    //New Azurelib animation stuff
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this,"controller",5,this::predicate));
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return null;
     }
 
 

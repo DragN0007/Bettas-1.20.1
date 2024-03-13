@@ -1,6 +1,7 @@
 package com.dragn.bettas.fish.saltwater.seastar;
 
 import com.dragn.bettas.BettasMain;
+import mod.azure.azurelib.animatable.GeoEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,7 +21,6 @@ import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.manager.AnimationData;

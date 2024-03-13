@@ -2,7 +2,6 @@ package com.dragn.bettas.fish.saltwater.jelly;
 
 import com.dragn.bettas.BettasMain;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib.model.GeoModel;
 
 public class JellyModel extends GeoModel<JellyEntity> {
 

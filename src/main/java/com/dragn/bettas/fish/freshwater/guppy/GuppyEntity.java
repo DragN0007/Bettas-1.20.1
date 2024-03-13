@@ -1,6 +1,7 @@
 package com.dragn.bettas.fish.freshwater.guppy;
 
 import com.dragn.bettas.BettasMain;
+import mod.azure.azurelib.animatable.GeoEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -19,7 +20,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -93,8 +93,7 @@ public class GuppyEntity extends AbstractSchoolingFish implements GeoEntity {
     }
 
 
-
-    //Bucket
+//Bucket
     public void saveToBucketTag(ItemStack p_30049_) {
         super.saveToBucketTag(p_30049_);
         CompoundTag compoundtag = p_30049_.getOrCreateTag();

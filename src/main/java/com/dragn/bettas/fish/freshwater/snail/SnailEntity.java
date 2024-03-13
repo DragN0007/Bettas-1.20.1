@@ -1,12 +1,14 @@
 package com.dragn.bettas.fish.freshwater.snail;
 
 import com.dragn.bettas.BettasMain;
+import mod.azure.azurelib.animatable.GeoEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -24,7 +26,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.manager.AnimationData;
@@ -32,13 +33,12 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class SnailEntity extends AbstractFish implements GeoEntity {
 
     private static final EntityDataAccessor<Integer> TEXTURE = SynchedEntityData.defineId(SnailEntity.class, EntityDataSerializers.INT);
 
-    public static boolean checkSnailSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos pos, Random random) {
+    public static boolean checkSnailSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource) {
         return levelAccessor.isWaterAt(pos);
     }
 

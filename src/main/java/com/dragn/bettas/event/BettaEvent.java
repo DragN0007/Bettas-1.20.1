@@ -4,7 +4,6 @@ package com.dragn.bettas.event;
 import com.dragn.bettas.BettasMain;
 import com.dragn.bettas.betta.BettaEntity;
 import com.dragn.bettas.betta.BettaRender;
-import com.dragn.bettas.biome.BettaBiome;
 import com.dragn.bettas.decor.Decor;
 import com.dragn.bettas.fish.freshwater.cherrybarb.CherryBarbEntity;
 import com.dragn.bettas.fish.freshwater.cherrybarb.CherryBarbRender;
@@ -47,23 +46,24 @@ import com.dragn.bettas.fish.saltwater.seastar.SeaStarEntity;
 import com.dragn.bettas.fish.saltwater.seastar.SeaStarRender;
 import com.dragn.bettas.tank.TankLoader;
 import com.dragn.bettas.tank.TankTileRenderer;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = BettasMain.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BettaEvent {
@@ -95,8 +95,32 @@ public class BettaEvent {
     }
 
     @SubscribeEvent
-    public static void clientSetupEvent(FMLClientSetupEvent event) {
+    public static void spawnPlacementRegisterEvent(SpawnPlacementRegisterEvent event) {
+         event.register(BettasMain.BETTA_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BettaEntity::checkBettaSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.SNAIL_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnailEntity::checkSnailSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.KOI_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.TETRA_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.CHERRYBARB_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.GOLDFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.GUPPY_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.SILVERSHARK_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.GHOSTSHRIMP_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostShrimpEntity::checkFloorDwellerSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.ISOPOD_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, IsopodEntity::checkFloorDwellerSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.SNAKEHEAD_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
 
+         event.register(BettasMain.SEAHORSE_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.CLOWNFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.SEASTAR_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.ANGELFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.FILEFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.SEASLUG_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SeaSlugEntity::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.GLAUCUS_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.JELLY_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+         event.register(BettasMain.CRAB_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::checkFloorDwellerSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+    }
+
+    @SubscribeEvent
+    public static void clientSetupEvent(FMLClientSetupEvent event) {
         /* REGISTER RENDERERS */
         EntityRenderers.register(BettasMain.BETTA_ENTITY.get(), BettaRender::new);
         EntityRenderers.register(BettasMain.SNAIL_ENTITY.get(), SnailRender::new);
@@ -123,32 +147,8 @@ public class BettaEvent {
         EntityRenderers.register(BettasMain.CRAB_ENTITY.get(), CrabRender::new);
 
 
-        /* REGISTER BETTA SPAWNING */
-        SpawnPlacements.register(BettasMain.BETTA_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.SNAIL_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnailEntity::checkSnailSpawnRules);
-        SpawnPlacements.register(BettasMain.KOI_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.TETRA_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.CHERRYBARB_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.GOLDFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.GUPPY_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.SILVERSHARK_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.GHOSTSHRIMP_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostShrimpEntity::checkFloorDwellerSpawnRules);
-        SpawnPlacements.register(BettasMain.ISOPOD_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, IsopodEntity::checkFloorDwellerSpawnRules);
-        SpawnPlacements.register(BettasMain.SNAKEHEAD_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-
-        SpawnPlacements.register(BettasMain.SEAHORSE_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.CLOWNFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.SEASTAR_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.ANGELFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.FILEFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.SEASLUG_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SeaSlugEntity::checkSnailSpawnRules);
-        SpawnPlacements.register(BettasMain.GLAUCUS_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.JELLY_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,WaterAnimal::checkSurfaceWaterAnimalSpawnRules);
-        SpawnPlacements.register(BettasMain.CRAB_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::checkFloorDwellerSpawnRules);
-
-
         /* SET BLOCK RENDER LAYERS */
-        ItemBlockRenderTypes.setRenderLayer(BettasMain.TANK.get(), RenderType.translucent());
+        //ItemBlockRenderTypes.setRenderLayer(BettasMain.TANK.get(), RenderType.translucent());
     }
 
     @SubscribeEvent
@@ -157,32 +157,26 @@ public class BettaEvent {
     }
 
     @SubscribeEvent
-    public static void modelRegistryEvent(ModelRegistryEvent event) {
-        ModelLoaderRegistry.registerLoader(TankLoader.LOCATION, TankLoader.INSTANCE);
+    public static void modelRegistryEvent(ModelEvent.RegisterGeometryLoaders event) {
+        event.register(TankLoader.LOCATION, TankLoader.INSTANCE);
     }
 
     @SubscribeEvent
-    public static void registerBiomes(RegistryEvent.Register<Biome> event) {
-        IForgeRegistry<Biome> registry = event.getRegistry();
-        registry.register(BettaBiome.BETTA_SWAMP);
-    }
+    public static void registerDecor(RegisterEvent event) {
+        if(event.getRegistryKey().equals(ForgeRegistries.Keys.ITEMS)) {
+            Item.Properties properties = new Item.Properties().tab(BettasMain.TANK_TAB);
 
-    @SubscribeEvent
-    public static void registerDecor(RegistryEvent.Register<Item> event) {
-        IForgeRegistry<Item> registry = event.getRegistry();
-
-        BettasMain.BLOCKS.getEntries().forEach(registryObject -> {
-            if (registryObject != null) {
-                if (registryObject.get() instanceof Decor.Vanilla decor) {
+            BettasMain.BLOCKS.getEntries().forEach(blockRegistryObject -> {
+                Block block = blockRegistryObject.get();
+                if(block instanceof Decor.Vanilla decor) {
                     decor.init();
-                } else if (registryObject.get() instanceof Decor decor) {
-                    String name = decor.getRegistryName().getPath();
-
-                    Item item = (new Item(new Item.Properties().tab(BettasMain.TANK_TAB))).setRegistryName(name);
-                    registry.register(item);
-                    Decor.addMappings(decor, item);
+                } else if(block instanceof Decor decor) {
+                    Supplier<Item> itemSupplier = () -> new Item(properties);
+                    event.register(ForgeRegistries.Keys.ITEMS, blockRegistryObject.getId(), itemSupplier);
+                    RegistryObject<Item> obj = RegistryObject.create(blockRegistryObject.getId(), ForgeRegistries.Keys.ITEMS, BettasMain.MODID);
+                    Decor.addMappings(decor, obj.get());
                 }
-            }
-        });
+            });
+        }
     }
 }

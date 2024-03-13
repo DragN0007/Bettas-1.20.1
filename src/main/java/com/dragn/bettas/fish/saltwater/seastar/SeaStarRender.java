@@ -1,7 +1,7 @@
 package com.dragn.bettas.fish.saltwater.seastar;
 
+import mod.azure.azurelib.renderer.GeoEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class SeaStarRender extends GeoEntityRenderer<SeaStarEntity> {
 

@@ -1,7 +1,7 @@
 package com.dragn.bettas.fish.freshwater.snail;
 
+import mod.azure.azurelib.renderer.GeoEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class SnailRender extends GeoEntityRenderer<SnailEntity> {
 
