@@ -2,6 +2,11 @@ package com.dragn.bettas.fish.freshwater.isopod;
 
 import com.dragn.bettas.BettasMain;
 import mod.azure.azurelib.animatable.GeoEntity;
+import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.core.animation.AnimatableManager;
+import mod.azure.azurelib.core.animation.AnimationController;
+import mod.azure.azurelib.core.animation.RawAnimation;
+import mod.azure.azurelib.util.AzureLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -26,20 +31,15 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
 public class IsopodEntity extends AbstractFish implements GeoEntity {
 
+    public IsopodEntity(EntityType<? extends AbstractFish> entity, Level level) {
+        super(entity, level);
+        this.noCulling = true;
+    }
     private static final EntityDataAccessor<Integer> TEXTURE = SynchedEntityData.defineId(IsopodEntity.class, EntityDataSerializers.INT);
 
     public static boolean checkFloorDwellerSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos pos, RandomSource randomSource) {
@@ -65,37 +65,22 @@ public class IsopodEntity extends AbstractFish implements GeoEntity {
         }
     }
 
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
+    private final AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
 
-    public IsopodEntity(EntityType<? extends AbstractFish> entityType, Level world) {
-        super(entityType, world);
-        this.moveControl = new SnailMovementController(this);
-        this.noCulling = true;
-    }
-
-
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-
-        if (event.isMoving()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("swim", ILoopType.EDefaultLoopTypes.LOOP));
-
-        } else
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", ILoopType.EDefaultLoopTypes.LOOP));
-
-
-        return PlayState.CONTINUE;
-    }
-
-
-    //Controls animations
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this,"controller",5,this::predicate));
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 
     @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "controllerOne", 0, event ->
+        {
+            return event.setAndContinue(
+                    event.isMoving() ? RawAnimation.begin().thenLoop("swim"):
+                            RawAnimation.begin().thenLoop("idle"));
+        }));
+
     }
 
     @Override

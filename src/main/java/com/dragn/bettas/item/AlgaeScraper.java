@@ -1,6 +1,5 @@
 package com.dragn.bettas.item;
 
-import com.dragn.bettas.BettasMain;
 import com.dragn.bettas.tank.TankTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class AlgaeScraper extends Item {
     public AlgaeScraper() {
-        super(new Properties().tab(BettasMain.TANK_TAB).durability(64));
+        super(new Properties().durability(64));
     }
 
     @Override

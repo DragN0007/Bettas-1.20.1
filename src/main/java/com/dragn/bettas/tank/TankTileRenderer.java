@@ -20,7 +20,7 @@ public class TankTileRenderer implements BlockEntityRenderer<TankTile> {
     @Override
     public void render(TankTile tankTile, float partialTicks, PoseStack poseStack, @NotNull MultiBufferSource buffer, int lightVal, int overlay) {
         poseStack.pushPose();
-        tankTile.allDecor().forEach(state -> renderer.renderSingleBlock(state, poseStack, buffer, lightVal, overlay, EmptyModelData.INSTANCE));
+        tankTile.allDecor().forEach(state -> renderer.renderSingleBlock(state, poseStack, buffer, lightVal, overlay, EmptyModel.INSTANCE));
         poseStack.popPose();
     }
 }

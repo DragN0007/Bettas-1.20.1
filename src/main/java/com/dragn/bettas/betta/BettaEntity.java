@@ -1,9 +1,14 @@
 package com.dragn.bettas.betta;
 
 import com.dragn.bettas.BettasMain;
+import mod.azure.azurelib.animatable.GeoEntity;
+import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.core.animation.AnimatableManager;
+import mod.azure.azurelib.core.animation.AnimationController;
+import mod.azure.azurelib.core.animation.RawAnimation;
+import mod.azure.azurelib.util.AzureLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -18,19 +23,12 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.constant.DefaultAnimations;
-import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.util.ClientUtils;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -42,7 +40,7 @@ public class BettaEntity extends AbstractFish implements GeoEntity {
     private static final EntityDataAccessor<int[]> COLOR_MAP =  SynchedEntityData.defineId(BettaEntity.class, (EntityDataSerializer<int[]>) BettasMain.COLOR_SERIALIZER.get().getSerializer());
 
 
-    public static boolean m_186231_(EntityType<BettaEntity> p_186232_, LevelAccessor p_186233_, MobSpawnType p_186234_, BlockPos p_186235_, Random p_186236_) {
+    public static boolean checkBettaSpawnRules(EntityType<BettaEntity> p_186232_, LevelAccessor p_186233_, MobSpawnType p_186234_, BlockPos p_186235_, Random p_186236_) {
         return p_186233_.getFluidState(p_186235_.below()).is(FluidTags.WATER) && p_186233_.getBlockState(p_186235_.above()).is(Blocks.WATER) && (p_186233_.getBiome(p_186235_).is(Biomes.LUSH_CAVES) || WaterAnimal.checkSurfaceWaterAnimalSpawnRules(p_186232_, p_186233_, p_186234_, p_186235_, p_186236_));
     }
 
@@ -106,34 +104,29 @@ public class BettaEntity extends AbstractFish implements GeoEntity {
         return 1;
     }
 
-    //They completely fucked the animation code and now its 100x worse
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(
-                new AnimationController<>(this, 10, state -> state.setAndContinue(this.isFlying ? DefaultAnimations.SWIM : DefaultAnimations.IDLE))
-                        .setCustomInstructionKeyframeHandler(state -> {
-                            Player player = ClientUtils.getClientPlayer();
 
-                            if (player != null)
-                                player.displayClientMessage(Component.literal("KeyFraming"), true);
-                        }),
-                DefaultAnimations.genericLivingController(this)
-        );
+    //TODO; New Azurelib animation stuff
+    private final AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 
-//    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-//        if(event.isMoving()) {
-//            event.getController().setAnimation(new AnimationBuilder().loop("swim"));
-//        } else {
-//            event.getController().setAnimation(new AnimationBuilder().loop("idle"));
-//        }
-//        return PlayState.CONTINUE;
-//    }
+    //Example from the Azurelib Wiki (https://wiki.azuredoom.com/readme-1/how-to-create-an-animated-entity)
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "controllerOne", 0, event ->
+        {
+            return event.setAndContinue(
+                    // If moving, play the swimming animation
+                    event.isMoving() ? RawAnimation.begin().thenLoop("swim"):
 
-//    @Override
-//    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-//        data.addAnimationController(new AnimationController<>(this, "controller", 8, this::predicate));
-//    }
+                            // If not moving, play the idle animation
+                            RawAnimation.begin().thenLoop("idle"));
+        }));
+
+    }
 
     public ResourceLocation getTextureLocation() {
         if(textureLocation == null) {
@@ -210,8 +203,4 @@ public class BettaEntity extends AbstractFish implements GeoEntity {
         this.entityData.define(COLOR_MAP, new int[7]);
     }
 
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return null;
-    }
 }

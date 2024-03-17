@@ -105,7 +105,7 @@ public class Tank extends Block implements EntityBlock, SimpleWaterloggedBlock {
     @Override
     public void onRemove(BlockState state1, Level level, BlockPos pos, BlockState state2, boolean bool) {
         if(!state1.is(state2.getBlock())) {
-            BlockPos offset = pos.offset(0.5, 0.5, 0.5, 0.5);
+            BlockPos offset = pos.offset(1, 1, 1, 0.5); //<-- These were doubles, but it now requires ints. I have no idea what a "long" is (wtf??)
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if(blockEntity instanceof TankTile) {
                 ((TankTile) blockEntity).allDecor().forEach(k -> {

@@ -164,7 +164,7 @@ public class BettaEvent {
     @SubscribeEvent
     public static void registerDecor(RegisterEvent event) {
         if(event.getRegistryKey().equals(ForgeRegistries.Keys.ITEMS)) {
-            Item.Properties properties = new Item.Properties().tab(BettasMain.TANK_TAB);
+            Item.Properties properties = new Item.Properties();
 
             BettasMain.BLOCKS.getEntries().forEach(blockRegistryObject -> {
                 Block block = blockRegistryObject.get();

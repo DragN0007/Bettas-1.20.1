@@ -2,6 +2,11 @@ package com.dragn.bettas.fish.saltwater.seastar;
 
 import com.dragn.bettas.BettasMain;
 import mod.azure.azurelib.animatable.GeoEntity;
+import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.core.animation.AnimatableManager;
+import mod.azure.azurelib.core.animation.AnimationController;
+import mod.azure.azurelib.core.animation.RawAnimation;
+import mod.azure.azurelib.util.AzureLibUtil;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,21 +20,19 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 
 public class SeaStarEntity extends AbstractFish implements GeoEntity {
+
+    public SeaStarEntity(EntityType<? extends AbstractFish> entity, Level level) {
+        super(entity, level);
+        this.noCulling = true;
+    }
 
     private static final EntityDataAccessor<Integer> TEXTURE = SynchedEntityData.defineId(SeaStarEntity.class, EntityDataSerializers.INT);
 
@@ -54,30 +57,22 @@ public class SeaStarEntity extends AbstractFish implements GeoEntity {
         }
     }
 
+    private final AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
 
-
-    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
-
-    public SeaStarEntity(EntityType<? extends AbstractFish> entityType, Level world) {
-        super(entityType, world);
-        this.moveControl = new SeaStarMovementController(this);
-        this.noCulling = true;
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 0, (event) -> PlayState.CONTINUE));
-    }
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "controllerOne", 0, event ->
+        {
+            return event.setAndContinue(
+                    event.isMoving() ? RawAnimation.begin().thenLoop("swim"):
+                            RawAnimation.begin().thenLoop("idle"));
+        }));
 
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
-
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new RandomStrollGoal(this, 0.25d, 30));
-        this.goalSelector.addGoal(2, new TryFindWaterGoal(this));
     }
 
 

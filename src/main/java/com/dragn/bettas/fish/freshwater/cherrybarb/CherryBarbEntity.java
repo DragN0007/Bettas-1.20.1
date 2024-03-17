@@ -33,8 +33,6 @@ import java.util.Random;
 
 public class CherryBarbEntity extends AbstractSchoolingFish implements GeoEntity {
 
-
-
     public static boolean checkTinyFishSpawnRules(EntityType<? extends WaterAnimal> entityType, LevelAccessor levelAccessor, MobSpawnType mobSpawnType, BlockPos pos, Random random) {
         return levelAccessor.isWaterAt(pos);
     }

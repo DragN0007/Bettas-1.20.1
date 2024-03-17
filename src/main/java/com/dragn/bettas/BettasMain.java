@@ -53,7 +53,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import software.bernie.geckolib.GeckoLib;
 import terrablender.api.Regions;
 
 import java.util.Random;
@@ -198,8 +197,6 @@ public class BettasMain {
         SERIALIZERS.register(modEventBus);
 
         modEventBus.addListener(this::setup);
-
-        GeckoLib.initialize();
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BettasCommonConfig.SPEC, "bettas_aquatics-common.toml");
 

@@ -17,6 +17,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.NotNull;
@@ -227,7 +228,7 @@ public class TankTile extends BlockEntity {
 
     @NotNull
     @Override
-    public IModelData getModelData() {
+    public ModelData getModelData() {
         return new ModelDataMap.Builder()
                 .withInitial(CONNECTED, this.connected)
                 .withInitial(ALGAE, this.algae)

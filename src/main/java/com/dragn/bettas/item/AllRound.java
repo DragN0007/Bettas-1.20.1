@@ -1,6 +1,5 @@
 package com.dragn.bettas.item;
 
-import com.dragn.bettas.BettasMain;
 import com.dragn.bettas.tank.TankTile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,7 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class AllRound extends Item {
     public AllRound() {
-        super(new Properties().tab(BettasMain.TANK_TAB));
+        super(new Properties());
     }
 
     @Override
