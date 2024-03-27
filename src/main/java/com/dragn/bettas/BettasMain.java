@@ -2,6 +2,7 @@ package com.dragn.bettas;
 
 import com.dragn.bettas.betta.BettaEntity;
 import com.dragn.bettas.biome.BettaBiome;
+import com.dragn.bettas.biome.BettaBiomeModifier;
 import com.dragn.bettas.decor.Decor;
 import com.dragn.bettas.fish.freshwater.cherrybarb.CherryBarbEntity;
 import com.dragn.bettas.fish.freshwater.ghostshrimp.GhostShrimpEntity;
@@ -25,11 +26,13 @@ import com.dragn.bettas.fish.saltwater.seaslug.SeaSlugEntity;
 import com.dragn.bettas.fish.saltwater.seastar.SeaStarEntity;
 import com.dragn.bettas.item.AlgaeScraper;
 import com.dragn.bettas.item.AllRound;
+import com.dragn.bettas.item.BettasItemTab;
 import com.dragn.bettas.tank.Tank;
 import com.dragn.bettas.tank.TankTile;
 import com.dragn.bettas.util.config.BettasCommonConfig;
 import com.mojang.serialization.Codec;
-import net.minecraft.core.Registry;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.ResourceLocation;
@@ -68,7 +71,6 @@ public class BettasMain {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
     public static final DeferredRegister<EntityDataSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, MODID);
-    public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, MODID);
     public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, MODID);
 
 
@@ -186,17 +188,24 @@ public class BettasMain {
                 }
             });
 
+    public static final RegistryObject<Codec<BettaBiomeModifier>> BETTA_CODEC = BIOME_MODIFIER_SERIALIZERS.register("betta_biome_modifier",
+            () -> RecordCodecBuilder.create(builder ->
+                    builder.group(Biome.LIST_CODEC.fieldOf("biomes").forGetter(BettaBiomeModifier::biomes)).apply(builder, BettaBiomeModifier::new)));
+
+
     public BettasMain()
     {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        modEventBus.addListener(this::setup);
 
         ENTITY_TYPES.register(modEventBus);
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
         SERIALIZERS.register(modEventBus);
-
-        modEventBus.addListener(this::setup);
+        BIOME_MODIFIER_SERIALIZERS.register(modEventBus);
+        BettasItemTab.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BettasCommonConfig.SPEC, "bettas_aquatics-common.toml");
 

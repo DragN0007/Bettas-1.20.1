@@ -2,8 +2,11 @@ package com.dragn.bettas.biome;
 
 import com.dragn.bettas.BettasMain;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
+import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.placement.AquaticPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +17,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
 
@@ -21,7 +26,7 @@ import java.util.function.Consumer;
 
 public class BettaBiome {
 
-    public static final ResourceKey<Biome> BETTA_SWAMP_KEY = ResourceKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BettasMain.MODID, "betta_swamp"));
+    public static final ResourceKey<Biome> BETTA_SWAMP_KEY = ResourceKey.create(Registries.BIOME, new ResourceLocation(BettasMain.MODID, "betta_swamp"));
 
 
     public static class BettaRegion extends Region {
@@ -37,13 +42,21 @@ public class BettaBiome {
         }
     }
 
-    public static Biome bettaBiome() {
+    public static void bootstrap(BootstapContext<Biome> context) {
+        context.register(BETTA_SWAMP_KEY, bettaBiome(context));
+    }
+
+    public static Biome bettaBiome(BootstapContext<Biome> context) {
         MobSpawnSettings.Builder mobspawnsettings$builder = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(mobspawnsettings$builder);
         BiomeDefaultFeatures.commonSpawns(mobspawnsettings$builder);
         mobspawnsettings$builder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.SLIME, 1, 1, 1));
         mobspawnsettings$builder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.FROG, 10, 2, 5));
-        BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder();
+
+        HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
+        HolderGetter<ConfiguredWorldCarver<?>> worldCarvers = context.lookup(Registries.CONFIGURED_CARVER);
+
+        BiomeGenerationSettings.Builder biomegenerationsettings$builder = new BiomeGenerationSettings.Builder(placedFeatures, worldCarvers);
         BiomeDefaultFeatures.addFossilDecoration(biomegenerationsettings$builder);
         BiomeDefaultFeatures.addDefaultCarversAndLakes(biomegenerationsettings$builder);
         BiomeDefaultFeatures.addDefaultCrystalFormations(biomegenerationsettings$builder);
@@ -74,7 +87,7 @@ public class BettaBiome {
                 .backgroundMusic(music);
 
         return new Biome.BiomeBuilder()
-                .precipitation(Biome.Precipitation.RAIN)
+                .hasPrecipitation(true)
                 .temperature(0.8F)
                 .downfall(0.9F)
                 .specialEffects(biomeSpecialEffects$builder.build())

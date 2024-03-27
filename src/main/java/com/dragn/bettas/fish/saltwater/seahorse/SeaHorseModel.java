@@ -1,6 +1,7 @@
 package com.dragn.bettas.fish.saltwater.seahorse;
 
 import com.dragn.bettas.BettasMain;
+import mod.azure.azurelib.model.GeoModel;
 import net.minecraft.resources.ResourceLocation;
 
 public class SeaHorseModel extends GeoModel<SeaHorseEntity> {

@@ -1,7 +1,6 @@
 package com.dragn.bettas.item;
 
 import com.dragn.bettas.BettasMain;
-import com.dragn.bettas.decor.Decor;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -60,18 +59,14 @@ public class BettasItemTab {
                         output.accept(BettasMain.GLAUCUS_BUCKET.get());
                         output.accept(BettasMain.JELLY_BUCKET.get());
                         output.accept(BettasMain.CRAB_BUCKET.get());
-
                     }).build());
 
     public static final RegistryObject<CreativeModeTab> TANK_TAB = CREATIVE_MODE_TABS.register("tank_tab",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(BettasMain.BETTA_BUCKET.get())).title(Component.translatable("itemGroup.tank_tab"))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(BettasMain.TANK.get())).title(Component.translatable("itemGroup.tank_tab"))
                     .displayItems((displayParameters, output) -> {
-
                         output.accept(BettasMain.TANK.get());
                         output.accept(BettasMain.ALGAE_SCRAPER.get());
                         output.accept(BettasMain.ALLROUND.get());
-                        output.accept(Decor.);
-
                     }).build());
 
     public static void register(IEventBus eventBus) {

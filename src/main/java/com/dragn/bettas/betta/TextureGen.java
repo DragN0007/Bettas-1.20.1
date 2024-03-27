@@ -14,7 +14,7 @@ public class TextureGen {
     public static ResourceLocation generateTexture(BasePattern basePattern, int[] map) {
         try {
             return Minecraft.getInstance().textureManager.register(String.valueOf(Arrays.hashCode(map)), new DynamicTexture(NativeImage.read(
-                    Minecraft.getInstance().getResourceManager().getResource(basePattern.resourceLocation).getInputStream()
+                    Minecraft.getInstance().getResourceManager().getResource(basePattern.resourceLocation).get().open()
             )) {
                 @Override
                 public void upload() {
@@ -22,27 +22,13 @@ public class TextureGen {
                     for (int x = 0; x < getPixels().getWidth(); x++) {
                         for (int y = 0; y < getPixels().getHeight(); y++) {
                             switch (getPixels().getPixelRGBA(x, y)) {
-                                case 0xff0b0b0b:
-                                    getPixels().setPixelRGBA(x, y, map[0]);
-                                    break;
-                                case 0xff000000:
-                                    getPixels().setPixelRGBA(x, y, map[1]);
-                                    break;
-                                case 0xff848484:
-                                    getPixels().setPixelRGBA(x, y, map[2]);
-                                    break;
-                                case 0xff5d5d5d:
-                                    getPixels().setPixelRGBA(x, y, map[3]);
-                                    break;
-                                case 0xffdcdcdc:
-                                    getPixels().setPixelRGBA(x, y, map[4]);
-                                    break;
-                                case 0xffb1b1b1:
-                                    getPixels().setPixelRGBA(x, y, map[5]);
-                                    break;
-                                case 0xff303030:
-                                    getPixels().setPixelRGBA(x, y, map[6]);
-                                    break;
+                                case 0xff0b0b0b -> getPixels().setPixelRGBA(x, y, map[0]);
+                                case 0xff000000 -> getPixels().setPixelRGBA(x, y, map[1]);
+                                case 0xff848484 -> getPixels().setPixelRGBA(x, y, map[2]);
+                                case 0xff5d5d5d -> getPixels().setPixelRGBA(x, y, map[3]);
+                                case 0xffdcdcdc -> getPixels().setPixelRGBA(x, y, map[4]);
+                                case 0xffb1b1b1 -> getPixels().setPixelRGBA(x, y, map[5]);
+                                case 0xff303030 -> getPixels().setPixelRGBA(x, y, map[6]);
                             }
                         }
                     }

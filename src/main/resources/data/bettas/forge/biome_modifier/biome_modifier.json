@@ -1,0 +1,8 @@
+{
+  "type": "bettas:betta_biome_modifier",
+  "biomes": [
+    "swamp",
+    "ocean",
+    "river"
+  ]
+}

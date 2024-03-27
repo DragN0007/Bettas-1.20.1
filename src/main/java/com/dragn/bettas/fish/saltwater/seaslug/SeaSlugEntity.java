@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
@@ -94,7 +95,7 @@ public class SeaSlugEntity extends AbstractFish implements GeoEntity {
 
     @Override
     protected SoundEvent getFlopSound() {
-        return null;
+        return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
     private static final EntityDataAccessor<Integer> TEXTURE = SynchedEntityData.defineId(SeaSlugEntity.class, EntityDataSerializers.INT);

@@ -4,12 +4,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.level.material.PushReaction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +19,6 @@ public class Decor extends Block {
     public static Map<String, Decor> NAME_TO_DECOR = new HashMap<>();
 
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-
-    private static final Material MATERIAL = new Material(MaterialColor.NONE, false, false, false, false, false, false, PushReaction.IGNORE);
 
     public static void addMappings(Decor decor, Item item) {
         ITEM_TO_DECOR.put(item, decor);
@@ -46,7 +42,7 @@ public class Decor extends Block {
     }
 
     public Decor() {
-        super(Properties.of(MATERIAL).noOcclusion());
+        super(BlockBehaviour.Properties.of().air());
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
 

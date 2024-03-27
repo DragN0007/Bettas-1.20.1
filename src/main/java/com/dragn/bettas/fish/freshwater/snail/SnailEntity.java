@@ -13,6 +13,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
@@ -35,6 +36,7 @@ public class SnailEntity extends AbstractFish implements GeoEntity {
 
     public SnailEntity(EntityType<? extends AbstractFish> entity, Level level) {
         super(entity, level);
+        this.moveControl = new SnailMovementController(this);
         this.noCulling = true;
     }
 
@@ -72,12 +74,12 @@ public class SnailEntity extends AbstractFish implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controllerOne", 0, event ->
-        {
-            return event.setAndContinue(
-                    event.isMoving() ? RawAnimation.begin().thenLoop("swim"):
-                            RawAnimation.begin().thenLoop("idle"));
-        }));
+//        controllers.add(new AnimationController<>(this, "controllerOne", 0, event ->
+//        {
+//            return event.setAndContinue(
+//                    event.isMoving() ? RawAnimation.begin().thenLoop("swim"):
+//                            RawAnimation.begin().thenLoop("idle"));
+//        }));
 
     }
 
@@ -96,7 +98,7 @@ public class SnailEntity extends AbstractFish implements GeoEntity {
 
     @Override
     protected SoundEvent getFlopSound() {
-        return null;
+        return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
     @Override
