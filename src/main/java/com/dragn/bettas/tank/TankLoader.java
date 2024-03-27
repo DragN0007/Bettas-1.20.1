@@ -18,7 +18,7 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.function.Function;
 
-public class TankLoader implements IModelLoader<TankLoader.TankModelGeometry> {
+public class TankLoader implements Model<TankLoader.TankModelGeometry> {
 
     public static final ResourceLocation LOCATION = new ResourceLocation(BettasMain.MODID, "tank_loader");
     public static final TankLoader INSTANCE = new TankLoader();

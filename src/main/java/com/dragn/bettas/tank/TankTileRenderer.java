@@ -3,10 +3,11 @@ package com.dragn.bettas.tank;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraftforge.client.model.data.EmptyModelData;
+import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
 
 public class TankTileRenderer implements BlockEntityRenderer<TankTile> {
@@ -20,7 +21,7 @@ public class TankTileRenderer implements BlockEntityRenderer<TankTile> {
     @Override
     public void render(TankTile tankTile, float partialTicks, PoseStack poseStack, @NotNull MultiBufferSource buffer, int lightVal, int overlay) {
         poseStack.pushPose();
-        tankTile.allDecor().forEach(state -> renderer.renderSingleBlock(state, poseStack, buffer, lightVal, overlay, EmptyModel.INSTANCE));
+        tankTile.allDecor().forEach(state -> renderer.renderSingleBlock(state, poseStack, buffer, lightVal, overlay, ModelData.EMPTY, RenderType.cutout()));
         poseStack.popPose();
     }
 }

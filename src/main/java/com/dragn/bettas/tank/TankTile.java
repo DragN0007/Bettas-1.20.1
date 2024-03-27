@@ -16,9 +16,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelData;
-import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
 import org.jetbrains.annotations.NotNull;
 
@@ -216,7 +214,7 @@ public class TankTile extends BlockEntity {
     }
 
     @Nullable
-//    @Override
+    @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
     }
@@ -229,9 +227,9 @@ public class TankTile extends BlockEntity {
     @NotNull
     @Override
     public ModelData getModelData() {
-        return new ModelDataMap.Builder()
-                .withInitial(CONNECTED, this.connected)
-                .withInitial(ALGAE, this.algae)
+        return ModelData.builder()
+                .with(CONNECTED, this.connected)
+                .with(ALGAE, this.algae)
                 .build();
     }
 }

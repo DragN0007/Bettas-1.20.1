@@ -1,6 +1,7 @@
 package com.dragn.bettas.tank;
 
 import com.dragn.bettas.BettasMain;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -11,10 +12,13 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelState;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.model.IDynamicBakedModel;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,15 +30,15 @@ import java.util.function.Function;
 
 public class TankModel implements IDynamicBakedModel {
 
-    public static final Material BASE = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BettasMain.MODID, "blocks/base"));
-    public static final Material WALLS = new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BettasMain.MODID, "blocks/walls"));
+    public static final Material BASE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/base"));
+    public static final Material WALLS = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/walls"));
 
     public static final Material[] ALGAE_LEVELS = {
-            new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BettasMain.MODID, "blocks/algae0")),
-            new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BettasMain.MODID, "blocks/algae1")),
-            new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BettasMain.MODID, "blocks/algae2")),
-            new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BettasMain.MODID, "blocks/algae3")),
-            new Material(TextureAtlas.LOCATION_BLOCKS, new ResourceLocation(BettasMain.MODID, "blocks/algae4"))
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae0")),
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae1")),
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae2")),
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae3")),
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae4"))
     };
 
     private static final float[] DOWN = {0, 0, 0, 1, 0.03125f, 1};
@@ -114,11 +118,8 @@ public class TankModel implements IDynamicBakedModel {
 
         return quads;
     }
-
-
-    @NotNull
     @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull Random rand, @NotNull IModelData extraData) {
+    public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
         if(side != null) {
             return Collections.emptyList();
         }
@@ -128,12 +129,12 @@ public class TankModel implements IDynamicBakedModel {
         int connected = 0;
         int algae = 0;
 
-        if(extraData.getData(TankTile.CONNECTED) != null) {
-            connected = extraData.getData(TankTile.CONNECTED);
+        if(extraData.get(TankTile.CONNECTED) != null) {
+            connected = extraData.get(TankTile.CONNECTED);
         }
 
-        if(extraData.getData(TankTile.ALGAE) != null) {
-            algae = extraData.getData(TankTile.ALGAE);
+        if(extraData.get(TankTile.ALGAE) != null) {
+            algae = extraData.get(TankTile.ALGAE);
         }
 
         TextureAtlasSprite algaeSprite = this.spriteGetter.apply(ALGAE_LEVELS[algae]);
@@ -199,8 +200,8 @@ public class TankModel implements IDynamicBakedModel {
         }
 
         return quads;
-
     }
+
 
     @Override
     public boolean useAmbientOcclusion() {
