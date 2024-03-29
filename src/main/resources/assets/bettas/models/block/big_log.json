@@ -1,10 +1,10 @@
 {
   "credit": "Made with Blockbench",
-  "render_type": "minecraft:cutout",
+  "render_type": "cutout",
   "texture_size": [32, 32],
   "textures": {
-    "0": "bettas:blocks/big_log",
-    "particle": "bettas:blocks/big_log"
+    "0": "bettas:block/big_log",
+    "particle": "bettas:block/big_log"
   },
   "elements": [
     {

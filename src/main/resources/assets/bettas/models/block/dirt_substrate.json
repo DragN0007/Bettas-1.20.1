@@ -1,9 +1,9 @@
 {
   "credit": "Made with Blockbench",
-  "render_type": "minecraft:cutout",
+  "render_type": "cutout",
   "textures": {
-    "0": "bettas:blocks/dirt_substrate",
-    "particle": "bettas:blocks/dirt_substrate"
+    "0": "bettas:block/dirt_substrate",
+    "particle": "bettas:block/dirt_substrate"
   },
   "elements": [
     {

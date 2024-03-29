@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
-	"render_type": "minecraft:cutout",
+	"render_type": "cutout",
 	"textures": {
-		"0": "bettas:blocks/filter",
-		"particle": "bettas:blocks/filter"
+		"0": "bettas:block/filter",
+		"particle": "bettas:block/filter"
 	},
 	"elements": [
 		{

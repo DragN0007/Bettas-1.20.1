@@ -1,10 +1,10 @@
 {
 	"credit": "Made with Blockbench",
-	"render_type": "minecraft:cutout",
+	"render_type": "cutout",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "bettas:blocks/mini_castle",
-		"particle": "bettas:blocks/mini_castle"
+		"0": "bettas:block/mini_castle",
+		"particle": "bettas:block/mini_castle"
 	},
 	"elements": [
 		{

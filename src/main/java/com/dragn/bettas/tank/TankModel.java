@@ -27,15 +27,15 @@ import java.util.function.Function;
 
 public class TankModel implements IDynamicBakedModel {
 
-    public static final Material BASE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/base"));
-    public static final Material WALLS = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/walls"));
+    public static final Material BASE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "block/base"));
+    public static final Material WALLS = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "block/walls"));
 
     public static final Material[] ALGAE_LEVELS = {
-            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae0")),
-            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae1")),
-            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae2")),
-            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae3")),
-            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "blocks/algae4"))
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "block/algae0")),
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "block/algae1")),
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "block/algae2")),
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "block/algae3")),
+            new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(BettasMain.MODID, "block/algae4"))
     };
 
     private static final float[] DOWN = {0, 0, 0, 1, 0.03125f, 1};

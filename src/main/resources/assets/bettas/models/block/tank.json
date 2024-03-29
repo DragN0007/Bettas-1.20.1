@@ -1,5 +1,5 @@
 {
   "parent": "block/block",
-  "render_type": "minecraft:translucent",
+  "render_type": "translucent",
   "loader": "bettas:tank_loader"
 }

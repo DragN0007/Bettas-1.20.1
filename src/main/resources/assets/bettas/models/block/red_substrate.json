@@ -1,9 +1,9 @@
 {
   "credit": "Made with Blockbench",
-  "render_type": "minecraft:cutout",
+  "render_type": "cutout",
   "textures": {
-    "0": "bettas:blocks/red_substrate",
-    "particle": "bettas:blocks/red_substrate"
+    "0": "bettas:block/red_substrate",
+    "particle": "bettas:block/red_substrate"
   },
   "elements": [
     {
