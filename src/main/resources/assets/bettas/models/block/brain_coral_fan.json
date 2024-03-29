@@ -1,5 +1,6 @@
 {
 	"credit": "Made with Blockbench",
+	"render_type": "minecraft:cutout",
 	"textures": {
 		"0": "block/brain_coral_fan",
 		"particle": "block/brain_coral_fan"

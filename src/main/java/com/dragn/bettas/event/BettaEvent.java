@@ -46,6 +46,7 @@ import com.dragn.bettas.fish.saltwater.seastar.SeaStarRender;
 import com.dragn.bettas.item.BettasItemTab;
 import com.dragn.bettas.tank.TankLoader;
 import com.dragn.bettas.tank.TankTileRenderer;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -174,7 +175,6 @@ public class BettaEvent {
     @SubscribeEvent
     public static void registerDecor(RegisterEvent event) {
         if (event.getRegistryKey().equals(ForgeRegistries.Keys.ITEMS)) {
-
             BettasMain.BLOCKS.getEntries().forEach(blockRegistryObject -> {
                 Block block = blockRegistryObject.get();
                 if (block instanceof Decor.Vanilla decor) {

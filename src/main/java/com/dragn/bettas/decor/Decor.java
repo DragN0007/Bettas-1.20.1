@@ -42,12 +42,12 @@ public class Decor extends Block {
     }
 
     public Decor() {
-        super(BlockBehaviour.Properties.of().air());
-        registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
+        super(BlockBehaviour.Properties.of().noCollission());
+        this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
 
     public BlockState facing(Direction direction) {
-        return defaultBlockState().setValue(FACING, direction);
+        return this.defaultBlockState().setValue(FACING, direction);
     }
 
     @Override
