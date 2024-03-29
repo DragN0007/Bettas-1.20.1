@@ -77,7 +77,7 @@ public class GlowFishEntity extends AbstractSchoolingFish implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controllerOne", 0, event ->
+        controllers.add(new AnimationController<>(this, "controllerOne", 3, event ->
         {
             return event.setAndContinue(
                     event.isMoving() ? RawAnimation.begin().thenLoop("swim"):

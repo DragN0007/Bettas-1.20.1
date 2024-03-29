@@ -74,7 +74,7 @@ public class CherryBarbEntity extends AbstractSchoolingFish implements GeoEntity
     //Example from the Azurelib Wiki (https://wiki.azuredoom.com/readme-1/how-to-create-an-animated-entity)
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controllerOne", 0, event ->
+        controllers.add(new AnimationController<>(this, "controllerOne", 3, event ->
         {
             return event.setAndContinue(
                     // If moving, play the swimming animation
