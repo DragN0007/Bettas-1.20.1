@@ -1,8 +1,8 @@
 package com.dragn.bettas.fish.saltwater.glaucus;
 
 
-import mod.azure.azurelib.renderer.GeoEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class GlaucusRender extends GeoEntityRenderer<GlaucusEntity> {
     public GlaucusRender(EntityRendererProvider.Context renderManager) {

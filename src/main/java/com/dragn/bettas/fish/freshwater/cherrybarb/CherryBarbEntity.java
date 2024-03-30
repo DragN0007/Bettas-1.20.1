@@ -1,12 +1,6 @@
 package com.dragn.bettas.fish.freshwater.cherrybarb;
 
 import com.dragn.bettas.BettasMain;
-import mod.azure.azurelib.animatable.GeoEntity;
-import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
-import mod.azure.azurelib.core.animation.AnimatableManager;
-import mod.azure.azurelib.core.animation.AnimationController;
-import mod.azure.azurelib.core.animation.RawAnimation;
-import mod.azure.azurelib.util.AzureLibUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -27,6 +21,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -63,30 +63,27 @@ public class CherryBarbEntity extends AbstractSchoolingFish implements GeoEntity
     }
 
 
-    //TODO; New Azurelib animation stuff
-    private final AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
+    //TODO; Add Geckolib Code back in
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
+    private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState) {
+        if(tAnimationState.isMoving()) {
+            tAnimationState.getController().setAnimation(RawAnimation.begin().then("swim", Animation.LoopType.LOOP));
+            return PlayState.CONTINUE;
+        }
+
+        tAnimationState.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "controller", 2, this::predicate));
+    }
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
+        return this.geoCache;
     }
-
-    //Example from the Azurelib Wiki (https://wiki.azuredoom.com/readme-1/how-to-create-an-animated-entity)
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controllerOne", 3, event ->
-        {
-            return event.setAndContinue(
-                    // If moving, play the swimming animation
-                    event.isMoving() ? RawAnimation.begin().thenLoop("swim"):
-
-                            // If not moving, play the idle animation
-                            RawAnimation.begin().thenLoop("idle"));
-        }));
-
-    }
-
-    //event.isMoving() ? (isAggressive() ? RawAnimation.begin().thenLoop("sprint"): RawAnimation.begin().thenLoop("swim")):
 
 
     //Bucket
@@ -144,5 +141,6 @@ public class CherryBarbEntity extends AbstractSchoolingFish implements GeoEntity
         }
         return super.finalizeSpawn(levelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
+
 }
 

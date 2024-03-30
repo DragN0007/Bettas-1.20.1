@@ -1,8 +1,8 @@
 package com.dragn.bettas.fish.saltwater.crab;
 
 import com.dragn.bettas.BettasMain;
-import mod.azure.azurelib.model.GeoModel;
 import net.minecraft.resources.ResourceLocation;
+import software.bernie.geckolib.model.GeoModel;
 
 public class CrabModel extends GeoModel<CrabEntity> {
 

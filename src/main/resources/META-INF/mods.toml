@@ -25,9 +25,9 @@ Bettas is a small mod that aims to add cute betta fish to your game. Find the be
     ordering="NONE"
     side="BOTH"
 [[dependencies.bettas]]
-    modId="azurelib"
+    modId="geckolib"
     mandatory=true
-    versionRange = "[1.0.34,)"
+    versionRange = "[4.4.4,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.bettas]]
