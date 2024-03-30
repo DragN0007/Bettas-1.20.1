@@ -69,7 +69,7 @@ public class SeaStarEntity extends AbstractFish implements GeoEntity {
 
     @Override
     public void registerControllers(final AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 2, this::predicate));
+        controllers.add(new AnimationController<>(this, "controller", 3, this::predicate));
     }
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

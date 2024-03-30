@@ -1,7 +1,6 @@
 package com.dragn.bettas.fish.freshwater.ghostshrimp;
 
 import com.dragn.bettas.BettasMain;
-import com.dragn.bettas.fish.freshwater.isopod.Texture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

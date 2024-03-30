@@ -1,7 +1,6 @@
 package com.dragn.bettas.fish.freshwater.ghostshrimp;
 
 import com.dragn.bettas.BettasMain;
-import com.dragn.bettas.fish.freshwater.cherrybarb.Gender;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.GeoModel;
 
@@ -17,7 +16,7 @@ public class GhostShrimpModel extends GeoModel<GhostShrimpEntity> {
 
     @Override
     public ResourceLocation getTextureResource(GhostShrimpEntity object) {
-        return Gender.patternFromOrdinal(object.getTexture()).resourceLocation;
+        return Texture.patternFromOrdinal(object.getTexture()).resourceLocation;
     }
 
     @Override
