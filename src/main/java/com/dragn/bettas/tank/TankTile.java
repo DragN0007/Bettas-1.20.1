@@ -188,7 +188,6 @@ public class TankTile extends BlockEntity {
         this.age = -threshold;
     }
 
-
     @Override
     protected void saveAdditional(@NotNull CompoundTag compoundTag) {
         super.saveAdditional(compoundTag);

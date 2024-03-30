@@ -47,6 +47,7 @@ import com.dragn.bettas.item.BettasItemTab;
 import com.dragn.bettas.tank.TankLoader;
 import com.dragn.bettas.tank.TankTileRenderer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.WaterAnimal;
@@ -152,7 +153,7 @@ public class BettaEvent {
 
 
         /* SET BLOCK RENDER LAYERS */
-        //ItemBlockRenderTypes.setRenderLayer(BettasMain.TANK.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(BettasMain.TANK.get(), RenderType.translucent());
     }
 
     @SubscribeEvent
