@@ -1,6 +1,7 @@
 package com.dragn.bettas.fish.saltwater.crab;
 
 import com.dragn.bettas.BettasMain;
+import com.dragn.bettas.fish.FloorDwellerMovement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -8,6 +9,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
@@ -26,6 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.w3c.dom.Attr;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -42,6 +46,7 @@ public class CrabEntity extends AbstractFish implements GeoEntity {
     public CrabEntity(EntityType<? extends AbstractFish> entity, Level level) {
         super(entity, level);
         this.noCulling = true;
+        this.moveControl = new FloorDwellerMovement(this);
     }
 
     private static final EntityDataAccessor<Integer> TEXTURE = SynchedEntityData.defineId(CrabEntity.class, EntityDataSerializers.INT);
@@ -54,21 +59,6 @@ public class CrabEntity extends AbstractFish implements GeoEntity {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3d)
                 .add(Attributes.MOVEMENT_SPEED, 4d);
     }
-
-    static class SnailMovementController extends MoveControl {
-
-        public SnailMovementController(Mob mob) {
-            super(mob);
-        }
-
-        public void tick() {
-            if (this.operation == Operation.MOVE_TO) {
-                this.operation = Operation.WAIT;
-                this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
-            }
-        }
-    }
-
 
     //TODO; Add Geckolib Code back in
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);

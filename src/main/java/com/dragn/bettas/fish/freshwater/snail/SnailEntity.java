@@ -1,6 +1,7 @@
 package com.dragn.bettas.fish.freshwater.snail;
 
 import com.dragn.bettas.BettasMain;
+import com.dragn.bettas.fish.FloorDwellerMovement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,6 +18,9 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.TryFindWaterGoal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
@@ -38,7 +42,7 @@ public class SnailEntity extends AbstractFish implements GeoEntity {
 
     public SnailEntity(EntityType<? extends AbstractFish> entity, Level level) {
         super(entity, level);
-        this.moveControl = new SnailMovementController(this);
+        this.moveControl = new FloorDwellerMovement(this);
         this.noCulling = true;
     }
 
@@ -48,23 +52,16 @@ public class SnailEntity extends AbstractFish implements GeoEntity {
         return levelAccessor.isWaterAt(pos);
     }
 
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(1, new RandomStrollGoal(this, 0.25d, 30));
+        this.goalSelector.addGoal(2, new TryFindWaterGoal(this));
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3d)
                 .add(Attributes.MOVEMENT_SPEED, 1d);
-    }
-
-    static class SnailMovementController extends MoveControl {
-
-        public SnailMovementController(Mob mob) {
-            super(mob);
-        }
-
-        public void tick() {
-            if (this.operation == Operation.MOVE_TO) {
-                this.operation = Operation.WAIT;
-                this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
-            }
-        }
     }
 
     //TODO; Add Geckolib Code back in

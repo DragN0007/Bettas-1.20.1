@@ -1,6 +1,7 @@
 package com.dragn.bettas.fish.freshwater.isopod;
 
 import com.dragn.bettas.BettasMain;
+import com.dragn.bettas.fish.FloorDwellerMovement;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -40,6 +41,7 @@ public class IsopodEntity extends AbstractFish implements GeoEntity {
     public IsopodEntity(EntityType<? extends AbstractFish> entity, Level level) {
         super(entity, level);
         this.noCulling = true;
+        this.moveControl = new FloorDwellerMovement(this);
     }
     private static final EntityDataAccessor<Integer> TEXTURE = SynchedEntityData.defineId(IsopodEntity.class, EntityDataSerializers.INT);
 
@@ -50,20 +52,6 @@ public class IsopodEntity extends AbstractFish implements GeoEntity {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 1d)
                 .add(Attributes.MOVEMENT_SPEED, 5d);
-    }
-
-    static class SnailMovementController extends MoveControl {
-
-        public SnailMovementController(Mob mob) {
-            super(mob);
-        }
-
-        public void tick() {
-            if (this.operation == Operation.MOVE_TO) {
-                this.operation = Operation.WAIT;
-                this.mob.setSpeed((float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)));
-            }
-        }
     }
 
     //TODO; Add Geckolib Code back in
