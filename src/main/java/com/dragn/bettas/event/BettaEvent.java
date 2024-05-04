@@ -6,6 +6,8 @@ import com.dragn.bettas.betta.BettaRender;
 import com.dragn.bettas.decor.Decor;
 import com.dragn.bettas.fish.freshwater.cherrybarb.CherryBarbEntity;
 import com.dragn.bettas.fish.freshwater.cherrybarb.CherryBarbRender;
+import com.dragn.bettas.fish.freshwater.crystalshrimp.CrystalShrimpEntity;
+import com.dragn.bettas.fish.freshwater.crystalshrimp.CrystalShrimpRender;
 import com.dragn.bettas.fish.freshwater.ghostshrimp.GhostShrimpEntity;
 import com.dragn.bettas.fish.freshwater.ghostshrimp.GhostShrimpRender;
 import com.dragn.bettas.fish.freshwater.glowfish.GlowFishEntity;
@@ -18,6 +20,10 @@ import com.dragn.bettas.fish.freshwater.isopod.IsopodEntity;
 import com.dragn.bettas.fish.freshwater.isopod.IsopodRender;
 import com.dragn.bettas.fish.freshwater.koi.KoiEntity;
 import com.dragn.bettas.fish.freshwater.koi.KoiRender;
+import com.dragn.bettas.fish.freshwater.pleco.PlecoEntity;
+import com.dragn.bettas.fish.freshwater.pleco.PlecoRender;
+import com.dragn.bettas.fish.freshwater.salamander.SalamanderEntity;
+import com.dragn.bettas.fish.freshwater.salamander.SalamanderRender;
 import com.dragn.bettas.fish.freshwater.silvershark.SilverSharkEntity;
 import com.dragn.bettas.fish.freshwater.silvershark.SilverSharkRender;
 import com.dragn.bettas.fish.freshwater.snail.SnailEntity;
@@ -37,6 +43,8 @@ import com.dragn.bettas.fish.saltwater.glaucus.GlaucusEntity;
 import com.dragn.bettas.fish.saltwater.glaucus.GlaucusRender;
 import com.dragn.bettas.fish.saltwater.jelly.JellyEntity;
 import com.dragn.bettas.fish.saltwater.jelly.JellyRender;
+import com.dragn.bettas.fish.saltwater.seadragon.SeadragonEntity;
+import com.dragn.bettas.fish.saltwater.seadragon.SeadragonRender;
 import com.dragn.bettas.fish.saltwater.seahorse.SeaHorseEntity;
 import com.dragn.bettas.fish.saltwater.seahorse.SeaHorseRender;
 import com.dragn.bettas.fish.saltwater.seaslug.SeaSlugEntity;
@@ -87,6 +95,9 @@ public class BettaEvent {
         event.put(BettasMain.ISOPOD_ENTITY.get(), IsopodEntity.createAttributes().build());
         event.put(BettasMain.SNAKEHEAD_ENTITY.get(), SnakeheadEntity.createAttributes().build());
         event.put(BettasMain.GLOWFISH_ENTITY.get(), GlowFishEntity.createAttributes().build());
+        event.put(BettasMain.CRYSTALSHRIMP_ENTITY.get(), CrystalShrimpEntity.createAttributes().build());
+        event.put(BettasMain.SALAMANDER_ENTITY.get(), SalamanderEntity.createAttributes().build());
+        event.put(BettasMain.PLECO_ENTITY.get(), PlecoEntity.createAttributes().build());
 
         event.put(BettasMain.SEAHORSE_ENTITY.get(), SeaHorseEntity.createAttributes().build());
         event.put(BettasMain.CLOWNFISH_ENTITY.get(), ClownfishEntity.createAttributes().build());
@@ -97,6 +108,7 @@ public class BettaEvent {
         event.put(BettasMain.GLAUCUS_ENTITY.get(), GlaucusEntity.createAttributes().build());
         event.put(BettasMain.JELLY_ENTITY.get(), JellyEntity.createAttributes().build());
         event.put(BettasMain.CRAB_ENTITY.get(), CrabEntity.createAttributes().build());
+        event.put(BettasMain.SEADRAGON_ENTITY.get(), SeadragonEntity.createAttributes().build());
     }
 
     @SubscribeEvent
@@ -112,6 +124,9 @@ public class BettaEvent {
         event.register(BettasMain.GHOSTSHRIMP_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GhostShrimpEntity::checkFloorDwellerSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(BettasMain.ISOPOD_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, IsopodEntity::checkFloorDwellerSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(BettasMain.SNAKEHEAD_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(BettasMain.PLECO_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(BettasMain.CRYSTALSHRIMP_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(BettasMain.SALAMANDER_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
 
         event.register(BettasMain.SEAHORSE_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(BettasMain.CLOWNFISH_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
@@ -122,6 +137,7 @@ public class BettaEvent {
         event.register(BettasMain.GLAUCUS_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(BettasMain.JELLY_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(BettasMain.CRAB_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CrabEntity::checkFloorDwellerSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(BettasMain.SEADRAGON_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
     }
 
     @SubscribeEvent
@@ -139,6 +155,9 @@ public class BettaEvent {
         EntityRenderers.register(BettasMain.ISOPOD_ENTITY.get(), IsopodRender::new);
         EntityRenderers.register(BettasMain.SNAKEHEAD_ENTITY.get(), SnakeheadRender::new);
         EntityRenderers.register(BettasMain.GLOWFISH_ENTITY.get(), GlowFishRender::new);
+        EntityRenderers.register(BettasMain.CRYSTALSHRIMP_ENTITY.get(), CrystalShrimpRender::new);
+        EntityRenderers.register(BettasMain.PLECO_ENTITY.get(), PlecoRender::new);
+        EntityRenderers.register(BettasMain.SALAMANDER_ENTITY.get(), SalamanderRender::new);
 
 
         EntityRenderers.register(BettasMain.SEAHORSE_ENTITY.get(), SeaHorseRender::new);
@@ -150,6 +169,7 @@ public class BettaEvent {
         EntityRenderers.register(BettasMain.GLAUCUS_ENTITY.get(), GlaucusRender::new);
         EntityRenderers.register(BettasMain.JELLY_ENTITY.get(), JellyRender::new);
         EntityRenderers.register(BettasMain.CRAB_ENTITY.get(), CrabRender::new);
+        EntityRenderers.register(BettasMain.SEADRAGON_ENTITY.get(), SeadragonRender::new);
 
 
         /* SET BLOCK RENDER LAYERS */

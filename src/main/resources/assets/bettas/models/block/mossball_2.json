@@ -1,6 +1,5 @@
 {
 	"credit": "Made with Blockbench",
-	"render_type": "cutout",
 	"texture_size": [8, 8],
 	"textures": {
 		"0": "bettas:block/mossball",

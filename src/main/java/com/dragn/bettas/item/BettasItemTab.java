@@ -38,6 +38,10 @@ public class BettasItemTab {
                         output.accept(BettasMain.GLAUCUS_SPAWN_EGG.get());
                         output.accept(BettasMain.JELLY_SPAWN_EGG.get());
                         output.accept(BettasMain.CRAB_SPAWN_EGG.get());
+                        output.accept(BettasMain.SEADRAGON_SPAWN_EGG.get());
+                        output.accept(BettasMain.PLECO_SPAWN_EGG.get());
+                        output.accept(BettasMain.CRYSTALSHRIMP_SPAWN_EGG.get());
+                        output.accept(BettasMain.SALAMANDER_SPAWN_EGG.get());
 
                         output.accept(BettasMain.BETTA_SPAWN_EGG.get());
                         output.accept(BettasMain.SNAIL_BUCKET.get());
@@ -59,6 +63,10 @@ public class BettasItemTab {
                         output.accept(BettasMain.GLAUCUS_BUCKET.get());
                         output.accept(BettasMain.JELLY_BUCKET.get());
                         output.accept(BettasMain.CRAB_BUCKET.get());
+                        output.accept(BettasMain.SEADRAGON_BUCKET.get());
+                        output.accept(BettasMain.PLECO_BUCKET.get());
+                        output.accept(BettasMain.CRYSTALSHRIMP_BUCKET.get());
+                        output.accept(BettasMain.SALAMANDER_BUCKET.get());
                     }).build());
 
     public static final RegistryObject<CreativeModeTab> TANK_TAB = CREATIVE_MODE_TABS.register("tank_tab",

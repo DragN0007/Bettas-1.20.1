@@ -1,5 +1,4 @@
 {
   "parent": "block/block",
-  "render_type": "translucent",
   "loader": "bettas:tank_loader"
 }

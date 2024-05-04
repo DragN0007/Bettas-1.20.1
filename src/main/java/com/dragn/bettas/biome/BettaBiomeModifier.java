@@ -26,7 +26,8 @@ public record BettaBiomeModifier(HolderSet<Biome> biomes) implements BiomeModifi
             new MobSpawnSettings.SpawnerData(BettasMain.ANGELFISH_ENTITY.get(), BettasCommonConfig.ANGELFISH_WEIGHT.get(), 3, 5),
             new MobSpawnSettings.SpawnerData(BettasMain.SEAHORSE_ENTITY.get(), BettasCommonConfig.SEAHORSE_WEIGHT.get(), 1, 2),
             new MobSpawnSettings.SpawnerData(BettasMain.CLOWNFISH_ENTITY.get(), BettasCommonConfig.CLOWNFISH_WEIGHT.get(), 1, 4),
-            new MobSpawnSettings.SpawnerData(BettasMain.SEASTAR_ENTITY.get(), BettasCommonConfig.SEASTAR_WEIGHT.get(), 1, 2)
+            new MobSpawnSettings.SpawnerData(BettasMain.SEASTAR_ENTITY.get(), BettasCommonConfig.SEASTAR_WEIGHT.get(), 1, 2),
+            new MobSpawnSettings.SpawnerData(BettasMain.SEADRAGON_ENTITY.get(), BettasCommonConfig.SEADRAGON_WEIGHT.get(), 1, 2)
     );
 
     public static List<MobSpawnSettings.SpawnerData> SWAMP_SPAWNS = List.of(
@@ -39,7 +40,10 @@ public record BettaBiomeModifier(HolderSet<Biome> biomes) implements BiomeModifi
             new MobSpawnSettings.SpawnerData(BettasMain.TETRA_ENTITY.get(), BettasCommonConfig.TETRA_WEIGHT.get(), 2, 6),
             new MobSpawnSettings.SpawnerData(BettasMain.KOI_ENTITY.get(), BettasCommonConfig.KOI_WEIGHT.get(), 2, 6),
             new MobSpawnSettings.SpawnerData(BettasMain.BETTA_ENTITY.get(), BettasCommonConfig.BETTA_WEIGHT.get(), 3, 15),
-            new MobSpawnSettings.SpawnerData(BettasMain.SNAIL_ENTITY.get(), BettasCommonConfig.SNAIL_WEIGHT.get(), 1, 5)
+            new MobSpawnSettings.SpawnerData(BettasMain.SNAIL_ENTITY.get(), BettasCommonConfig.SNAIL_WEIGHT.get(), 1, 5),
+            new MobSpawnSettings.SpawnerData(BettasMain.CRYSTALSHRIMP_ENTITY.get(), BettasCommonConfig.CRYSTALSHRIMP_WEIGHT.get(), 1, 3),
+                    new MobSpawnSettings.SpawnerData(BettasMain.PLECO_ENTITY.get(), BettasCommonConfig.PLECO_WEIGHT.get(), 1, 1),
+                    new MobSpawnSettings.SpawnerData(BettasMain.SALAMANDER_ENTITY.get(), BettasCommonConfig.SALAMANDER_WEIGHT.get(), 1, 1)
     );
 
     public static List<MobSpawnSettings.SpawnerData> RIVER_SPAWNS = List.of(
@@ -50,7 +54,10 @@ public record BettaBiomeModifier(HolderSet<Biome> biomes) implements BiomeModifi
             new MobSpawnSettings.SpawnerData(BettasMain.GUPPY_ENTITY.get(), BettasCommonConfig.GUPPY_WEIGHT.get(), 2, 4),
             new MobSpawnSettings.SpawnerData(BettasMain.GOLDFISH_ENTITY.get(), BettasCommonConfig.GOLDFISH_WEIGHT.get(), 1, 4),
             new MobSpawnSettings.SpawnerData(BettasMain.CHERRYBARB_ENTITY.get(), BettasCommonConfig.CHERRYBARB_WEIGHT.get(), 2, 6),
-            new MobSpawnSettings.SpawnerData(BettasMain.KOI_ENTITY.get(), BettasCommonConfig.KOI_WEIGHT.get(), 2, 6)
+            new MobSpawnSettings.SpawnerData(BettasMain.KOI_ENTITY.get(), BettasCommonConfig.KOI_WEIGHT.get(), 2, 6),
+            new MobSpawnSettings.SpawnerData(BettasMain.CRYSTALSHRIMP_ENTITY.get(), BettasCommonConfig.CRYSTALSHRIMP_WEIGHT.get(), 1, 3),
+            new MobSpawnSettings.SpawnerData(BettasMain.PLECO_ENTITY.get(), BettasCommonConfig.PLECO_WEIGHT.get(), 1, 1),
+            new MobSpawnSettings.SpawnerData(BettasMain.SALAMANDER_ENTITY.get(), BettasCommonConfig.SALAMANDER_WEIGHT.get(), 1, 1)
     );
 
     @Override
