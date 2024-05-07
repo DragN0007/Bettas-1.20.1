@@ -42,6 +42,7 @@ public class BettasItemTab {
                         output.accept(BettasMain.PLECO_SPAWN_EGG.get());
                         output.accept(BettasMain.CRYSTALSHRIMP_SPAWN_EGG.get());
                         output.accept(BettasMain.SALAMANDER_SPAWN_EGG.get());
+                        output.accept(BettasMain.PEACOCKSHRIMP_SPAWN_EGG.get());
 
                         output.accept(BettasMain.BETTA_SPAWN_EGG.get());
                         output.accept(BettasMain.SNAIL_BUCKET.get());
@@ -67,6 +68,7 @@ public class BettasItemTab {
                         output.accept(BettasMain.PLECO_BUCKET.get());
                         output.accept(BettasMain.CRYSTALSHRIMP_BUCKET.get());
                         output.accept(BettasMain.SALAMANDER_BUCKET.get());
+                        output.accept(BettasMain.PEACOCKSHRIMP_BUCKET.get());
                     }).build());
 
     public static final RegistryObject<CreativeModeTab> TANK_TAB = CREATIVE_MODE_TABS.register("tank_tab",
@@ -75,6 +77,9 @@ public class BettasItemTab {
                         output.accept(BettasMain.TANK.get());
                         output.accept(BettasMain.ALGAE_SCRAPER.get());
                         output.accept(BettasMain.ALLROUND.get());
+                        output.accept(BettasMain.LEDBARLOW.get());
+                        output.accept(BettasMain.LEDBARHIGH.get());
+                        output.accept(BettasMain.LEDBARWALL.get());
                     }).build());
 
     public static void register(IEventBus eventBus) {
