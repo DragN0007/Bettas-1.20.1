@@ -115,7 +115,7 @@ public class BettasMain {
 
     public static final RegistryObject<Tank> TANK = BLOCKS.register("tank", Tank::new);
     static {
-        final String[] plainDecor = {"big_log", "filter", "heater", "large_rock", "medium_rock", "small_log", "small_rock", "shipwreck", "mossball_1", "mossball_2", "mini_castle"};
+        final String[] plainDecor = {"big_log", "filter", "heater", "large_rock", "medium_rock", "small_log", "small_rock", "shipwreck", "mossball_1", "mossball_2", "mini_castle", "duckweed", "dino_skull", "volcano", "leaf_hammock"};
         for(String name : plainDecor) {
             BLOCKS.register(name, Decor::new);
         }
@@ -129,6 +129,7 @@ public class BettasMain {
         BLOCKS.register("tube_coral_fan", () -> new Decor.Vanilla(Items.TUBE_CORAL_FAN));
         BLOCKS.register("fire_coral_fan", () -> new Decor.Vanilla(Items.FIRE_CORAL_FAN));
         BLOCKS.register("sea_pickle", () -> new Decor.Vanilla(Items.SEA_PICKLE));
+        BLOCKS.register("lily_pad", () -> new Decor.Vanilla(Items.LILY_PAD));
     }
 
     public static final RegistryObject<ForgeSpawnEggItem> BETTA_SPAWN_EGG = ITEMS.register("betta_spawn_egg", () -> new ForgeSpawnEggItem(BETTA_ENTITY, 0xC37FCC, 0xEFE9F0, new Item.Properties().stacksTo(64)));
