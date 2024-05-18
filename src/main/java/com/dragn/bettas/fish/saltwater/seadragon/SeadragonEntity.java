@@ -7,6 +7,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -51,22 +52,9 @@ public class SeadragonEntity extends AbstractSchoolingFish implements GeoEntity 
         return 2;
     }
 
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return null;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return null;
-    }
-
     protected SoundEvent getFlopSound() {
-        return null;
+        return SoundEvents.TROPICAL_FISH_FLOP;
     }
-
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 

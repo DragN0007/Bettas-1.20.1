@@ -60,6 +60,8 @@ public class SeaStarEntity extends AbstractFish implements GeoEntity {
         }
     }
 
+
+
     //TODO; Add Geckolib Code back in
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 

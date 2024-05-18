@@ -36,20 +36,9 @@ public class KoiEntity extends AbstractSchoolingFish implements GeoEntity {
         return 8;
     }
 
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.SALMON_AMBIENT;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.SALMON_DEATH;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return SoundEvents.SALMON_HURT;
-    }
-
+    @Override
     protected SoundEvent getFlopSound() {
-        return SoundEvents.SALMON_FLOP;
+        return SoundEvents.TROPICAL_FISH_FLOP;
     }
 
 

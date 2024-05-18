@@ -49,6 +49,7 @@ public class SeaSlugEntity extends AbstractFish implements GeoEntity {
         return levelAccessor.isWaterAt(pos);
     }
 
+
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 3d)
                 .add(Attributes.MOVEMENT_SPEED, 1d);

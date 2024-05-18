@@ -36,18 +36,6 @@ public class SeaHorseEntity extends AbstractSchoolingFish implements GeoEntity {
         return 2;
     }
 
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return null;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return null;
-    }
-
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }

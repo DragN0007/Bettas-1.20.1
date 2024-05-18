@@ -37,18 +37,7 @@ public class AngelfishEntity extends AbstractSchoolingFish implements GeoEntity 
         return 6;
     }
 
-    protected SoundEvent getAmbientSound() {
-        return null;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return null;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return null;
-    }
-
+    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.TROPICAL_FISH_FLOP;
     }
