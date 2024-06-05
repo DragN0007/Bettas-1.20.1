@@ -53,6 +53,11 @@ public class IsopodEntity extends AbstractFish implements GeoEntity {
                 .add(Attributes.MOVEMENT_SPEED, 5d);
     }
 
+    @Override
+    public float getStepHeight() {
+        return 1f;
+    }
+
     //TODO; Add Geckolib Code back in
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
