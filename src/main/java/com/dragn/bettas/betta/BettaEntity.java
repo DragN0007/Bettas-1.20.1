@@ -13,10 +13,12 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomSwimmingGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
@@ -29,6 +31,7 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
@@ -75,10 +78,19 @@ public class BettaEntity extends AbstractFish implements GeoEntity {
         this.noCulling = true;
     }
 
+    public static AttributeSupplier.Builder createAttributes() {
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 4)
+                .add(Attributes.ATTACK_DAMAGE, 0.5)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.9)
+                ;}
+
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 1d, 10));
+        this.goalSelector.addGoal(1, new RandomSwimmingGoal(this, 1d, 10));
+        this.goalSelector.addGoal(  0, new NearestAttackableTargetGoal<BettaEntity>(this, BettaEntity.class, 35, true, true, LivingEntity::attackable));
+        this.goalSelector.addGoal(  0, new MeleeAttackGoal(this, 2, true));
     }
 
     //Bucket
@@ -111,10 +123,13 @@ public class BettaEntity extends AbstractFish implements GeoEntity {
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState) {
         if(tAnimationState.isMoving()) {
+            if(isAggressive()) {
+                tAnimationState.getController().setAnimation(RawAnimation.begin().then("aggressive", Animation.LoopType.LOOP));
+                return PlayState.CONTINUE;
+            }
             tAnimationState.getController().setAnimation(RawAnimation.begin().then("swim", Animation.LoopType.LOOP));
             return PlayState.CONTINUE;
         }
-
         tAnimationState.getController().setAnimation(RawAnimation.begin().then("idle", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
