@@ -2,7 +2,7 @@ package com.dragn.bettas.tank;
 
 import com.dragn.bettas.BettasMain;
 import com.dragn.bettas.decor.Decor;
-import com.dragn.bettas.util.config.BettasCommonConfig;
+import com.dragn.bettas.util.BettasCommonConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

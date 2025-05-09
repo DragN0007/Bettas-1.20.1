@@ -1,7 +1,7 @@
 package com.dragn.bettas.event;
 
 import com.dragn.bettas.BettasMain;
-import com.dragn.bettas.betta.BettaEntity;
+import com.dragn.bettas.betta.Betta;
 import com.dragn.bettas.betta.BettaRender;
 import com.dragn.bettas.decor.Decor;
 import com.dragn.bettas.fish.freshwater.cherrybarb.CherryBarbEntity;
@@ -85,7 +85,7 @@ public class BettaEvent {
 
     @SubscribeEvent
     public static void entityAttrbiuteCreationEvent(EntityAttributeCreationEvent event) {
-        event.put(BettasMain.BETTA_ENTITY.get(), BettaEntity.createAttributes().build());
+        event.put(BettasMain.BETTA_ENTITY.get(), Betta.createAttributes().build());
         event.put(BettasMain.SNAIL_ENTITY.get(), SnailEntity.createAttributes().build());
         event.put(BettasMain.KOI_ENTITY.get(), KoiEntity.createAttributes().build());
         event.put(BettasMain.TETRA_ENTITY.get(), TetraEntity.createAttributes().build());
@@ -116,7 +116,7 @@ public class BettaEvent {
 
     @SubscribeEvent
     public static void spawnPlacementRegisterEvent(SpawnPlacementRegisterEvent event) {
-        event.register(BettasMain.BETTA_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BettaEntity::checkBettaSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+        event.register(BettasMain.BETTA_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Betta::checkBettaSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(BettasMain.SNAIL_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SnailEntity::checkSnailSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(BettasMain.KOI_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
         event.register(BettasMain.TETRA_ENTITY.get(), SpawnPlacements.Type.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WaterAnimal::checkSurfaceWaterAnimalSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);

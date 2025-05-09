@@ -1,8 +1,7 @@
 package com.dragn.bettas;
 
-import com.dragn.bettas.betta.BettaEntity;
+import com.dragn.bettas.betta.Betta;
 import com.dragn.bettas.biome.BettaBiome;
-import com.dragn.bettas.biome.BettaBiomeModifier;
 import com.dragn.bettas.block.LEDBarHigh;
 import com.dragn.bettas.block.LEDBarLow;
 import com.dragn.bettas.block.LEDBarWall;
@@ -37,9 +36,7 @@ import com.dragn.bettas.item.AllRound;
 import com.dragn.bettas.item.BettasItemTab;
 import com.dragn.bettas.tank.Tank;
 import com.dragn.bettas.tank.TankTile;
-import com.dragn.bettas.util.config.BettasCommonConfig;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.dragn.bettas.util.BettasCommonConfig;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.resources.ResourceLocation;
@@ -47,13 +44,11 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -79,11 +74,9 @@ public class BettasMain {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, MODID);
     public static final DeferredRegister<EntityDataSerializer<?>> SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.ENTITY_DATA_SERIALIZERS, MODID);
-    public static final DeferredRegister<Codec<? extends BiomeModifier>> BIOME_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, MODID);
-
 
     //FRESHWATER
-    public static final RegistryObject<EntityType<BettaEntity>> BETTA_ENTITY = ENTITY_TYPES.register("betta", () -> EntityType.Builder.of(BettaEntity::new, MobCategory.WATER_AMBIENT).sized(0.3f, 0.1f).build(new ResourceLocation(MODID, "betta").toString()));
+    public static final RegistryObject<EntityType<Betta>> BETTA_ENTITY = ENTITY_TYPES.register("betta", () -> EntityType.Builder.of(Betta::new, MobCategory.WATER_AMBIENT).sized(0.3f, 0.3f).build(new ResourceLocation(MODID, "betta").toString()));
     public static final RegistryObject<EntityType<SnailEntity>> SNAIL_ENTITY = ENTITY_TYPES.register("snail", () -> EntityType.Builder.of(SnailEntity::new, MobCategory.WATER_AMBIENT).sized(0.09f, 0.09f).build(new ResourceLocation(MODID, "snail").toString()));
     public static final RegistryObject<EntityType<KoiEntity>> KOI_ENTITY = ENTITY_TYPES.register("koi", () -> EntityType.Builder.of(KoiEntity::new, MobCategory.WATER_AMBIENT).sized(0.7f, 0.4f).build(new ResourceLocation(MODID, "koi").toString()));
     public static final RegistryObject<EntityType<TetraEntity>> TETRA_ENTITY = ENTITY_TYPES.register("tetra", () -> EntityType.Builder.of(TetraEntity::new, MobCategory.WATER_AMBIENT).sized(0.1f, 0.1f).build(new ResourceLocation(MODID, "tetra").toString()));
@@ -217,10 +210,6 @@ public class BettasMain {
                 }
             });
 
-    public static final RegistryObject<Codec<BettaBiomeModifier>> BETTA_CODEC = BIOME_MODIFIER_SERIALIZERS.register("betta_biome_modifier",
-            () -> RecordCodecBuilder.create(builder ->
-                    builder.group(Biome.LIST_CODEC.fieldOf("biomes").forGetter(BettaBiomeModifier::biomes)).apply(builder, BettaBiomeModifier::new)));
-
     protected static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block){
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
@@ -242,7 +231,6 @@ public class BettasMain {
         ITEMS.register(modEventBus);
         TILE_ENTITIES.register(modEventBus);
         SERIALIZERS.register(modEventBus);
-        BIOME_MODIFIER_SERIALIZERS.register(modEventBus);
         BettasItemTab.register(modEventBus);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, BettasCommonConfig.SPEC, "bettas_aquatics-common.toml");
